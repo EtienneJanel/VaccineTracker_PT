@@ -2,12 +2,16 @@
 <html lang="en">
 
 <head>
-    <title>Bootstrap Example</title>
+    <title>Vaccine Tracker - Portugal</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -60,7 +64,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Logo</a>
+                <a class="navbar-brand" href="#">Vaccine Tracker</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -81,24 +85,16 @@
             <div class="col-sm-2 sidenav">
                 <p><a href="https://www.sns24.gov.pt/">SNS24</a></p>
                 <p><a href="https://github.com/owid/owid-datasets">OWID Dataset Collection</a></p>
-                <p><a href="https://github.com/EtienneJanel">Contact me</a></p>
+                <p><a href="https://www.linkedin.com/in/etienne-janel-41bb4491/">Contact me</a></p>
             </div>
             <!-- </div> -->
 
             <div class="col-sm-8 text-left">
                 <h1>Vaccine Tracker - Portugal edition</h1>
-                <h2>Herd immunity</h2>
+                <p>Portuguese population: {{total_pop}}</p>
+                <p>Remaining people to vaccinate: {{remaining_pop}}</p>
+                <p>Remaining days for herd immunity: {{remaining_days}}</p>
 
-                <p>The Covid-19 basic reproduction number R0 is estimated at 2.5 [1] if no social measures are applied.
-                    To reach herd immunity we can apply the herd-immunity threshold with<br>
-                    <i> p<sub>raw</sub> = 1- 1/R0</i><br>
-                    Meaning we need 60% of the population to be vaccinated to stop the virus’ spread.<br>
-                    However, we can assume the vaccine's effectiveness at 95% [2], and subtract the 4.4% [3] of the
-                    total population that is already immune after being infected.<br>
-                    <i> p = (1- 1/R0-4.4%)/(95%)</i><br>
-                    Therefore, the minimum number of individuals that require the vaccine to achieve herd immunity is
-                    around <b>58.5%</b> of total population.
-                </p>
 
                 <h2>Current Situation</h2>
                 <div class="chart" id="dailydoses">
@@ -109,6 +105,23 @@
 
                 </div>
                 <hr>
+                <h2>Herd immunity</h2>
+
+                <p>The Covid-19 basic reproduction number R0 is estimated at 2.5 <a href="#sources">[1]</a> if no social
+                    measures are applied.
+                    To reach herd immunity we can apply the herd-immunity threshold with
+                    $$ {p_{raw}}=1-\dfrac{1}{R_{0}} $$ <br>
+                    Meaning we need 60% of the population to be vaccinated to stop the virus’ spread.<br>
+                    However, we can assume the vaccine's effectiveness at 95% <a href="#sources">[2]</a>, and subtract
+                    the 4.4% <a href="#sources">[3]</a> of the
+                    total population that is already immune after being infected
+                    $$ {p} = \dfrac{1-\dfrac{1}{R_{0}}-0.044}{0.95} $$<br>
+                    Therefore, the minimum number of individuals that require the vaccine to achieve herd immunity is
+                    around <b>58.5%</b> of total population.
+                </p>
+                <p>Most of the vaccines require 2 doses, taking the assumption that the two are injected the same
+                    day,<br>
+                    we would need \({11M * p * 2 doses} = {11.93M doses}\) to reach herd immunity</p>
                 <div class="chart" id="totaldoses">
                     <script>
                         var graphs = {{ plot2 | safe}};
@@ -116,23 +129,32 @@
                     </script>
 
                 </div>
-                <h2>Sources</h2>
+                <h2>More information</h2>
+                <p>More information in my blog posts<br>
+                    - <a href="https://www.linkedin.com/pulse/covid19-our-next-summer-season-only-2024-etienne-janel/">Covid19
+                        - Our next summer season? Only in 2024</a><br>
+                    - <a href="https://www.linkedin.com/pulse/covid-19-ending-august-2021-etienne-janel/">Is Covid-19
+                        ending by August 2021?</a>
+                </p>
+
+                <h2 id="sources">Sources</h2>
                 <p>
                     [1]. Anderson R M, Heesterbeek H, Klinkenberg D, Hollingsworth T D. How will country-based
                     mitigation measures influence the course of the COVID-19 epidemic?. The Lancet. 2020 Mar;
-                    395(10228):931-934. https://doi.org/10.1016/S0140-6736(20)30567-5</p>
+                    395(10228):931-934. <a href="https://doi.org/10.1016/S0140-6736(20)30567-5">[link]</a></p>
 
                 <p>
                     [2]. Pfizer.com. 2021. Pfizer and BioNTech Conclude Phase 3 Study of COVID-19 Vaccine Candidate,
                     Meeting All Primary Efficacy Endpoints | Pfizer. [online] Available at:
-                    https://www.pfizer.com/news/press-release/press-release-detail/pfizer-and-biontech-conclude-phase-3-study-covid-19-vaccine.
+                    <a
+                        href="https://www.pfizer.com/news/press-release/press-release-detail/pfizer-and-biontech-conclude-phase-3-study-covid-19-vaccine.">[link]</a>
                 </p>
 
                 <p>
                     [3]. Salje H, Tran-Kiem C, Lefrancq N, Courtejoie N, Bosetti P, Paireau J, Andronico A, Hozé N,
                     Richet J, Dubost C L, Le-Strat Y, Lessler J, Levy-Bruhl D, Fontanet A, Opatowski L, Boelle P Y,
                     Cauchemez S. Estimating the burden of SARS-CoV-2 in France. Science. 2020 Jul. 369(6500):208-211.
-                    https://doi.org/10.1126/science.abc3517
+                    <a href="https://doi.org/10.1126/science.abc3517">[link]</a>
 
                 </p>
             </div>
@@ -140,7 +162,8 @@
     </div>
 
     <footer class="container-fluid text-center">
-        <p> </p>
+        <p><a href="https://github.com/EtienneJanel/VaccineTracker_PT"><span style="color:white;">Source code</span></a>
+        </p>
     </footer>
     </div>
 </body>
