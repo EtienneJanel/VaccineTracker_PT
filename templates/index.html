@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {
+            height: 450px
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Logo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <!-- <li><a href="#">About</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Contact</a></li> -->
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-2 sidenav">
+                <p><a href="https://www.sns24.gov.pt/">SNS24</a></p>
+                <p><a href="https://github.com/owid/owid-datasets">OWID Dataset Collection</a></p>
+                <p><a href="https://github.com/EtienneJanel">Contact me</a></p>
+            </div>
+            <!-- </div> -->
+
+            <div class="col-sm-8 text-left">
+                <h1>Vaccine Tracker - Portugal edition</h1>
+                <h2>Herd immunity</h2>
+
+                <p>The Covid-19 basic reproduction number R0 is estimated at 2.5 [1] if no social measures are applied.
+                    To reach herd immunity we can apply the herd-immunity threshold with<br>
+                    <i> p<sub>raw</sub> = 1- 1/R0</i><br>
+                    Meaning we need 60% of the population to be vaccinated to stop the virus’ spread.<br>
+                    However, we can assume the vaccine's effectiveness at 95% [2], and subtract the 4.4% [3] of the
+                    total population that is already immune after being infected.<br>
+                    <i> p = (1- 1/R0-4.4%)/(95%)</i><br>
+                    Therefore, the minimum number of individuals that require the vaccine to achieve herd immunity is
+                    around <b>58.5%</b> of total population.
+                </p>
+
+                <h2>Current Situation</h2>
+                <div class="chart" id="dailydoses">
+                    <script>
+                        var graphs = {{ plot1 | safe}};
+                        Plotly.plot('dailydoses', graphs, {});
+                    </script>
+
+                </div>
+                <hr>
+                <div class="chart" id="totaldoses">
+                    <script>
+                        var graphs = {{ plot2 | safe}};
+                        Plotly.plot('totaldoses', graphs, {});
+                    </script>
+
+                </div>
+                <h2>Sources</h2>
+                <p>
+                    [1]. Anderson R M, Heesterbeek H, Klinkenberg D, Hollingsworth T D. How will country-based
+                    mitigation measures influence the course of the COVID-19 epidemic?. The Lancet. 2020 Mar;
+                    395(10228):931-934. https://doi.org/10.1016/S0140-6736(20)30567-5</p>
+
+                <p>
+                    [2]. Pfizer.com. 2021. Pfizer and BioNTech Conclude Phase 3 Study of COVID-19 Vaccine Candidate,
+                    Meeting All Primary Efficacy Endpoints | Pfizer. [online] Available at:
+                    https://www.pfizer.com/news/press-release/press-release-detail/pfizer-and-biontech-conclude-phase-3-study-covid-19-vaccine.
+                </p>
+
+                <p>
+                    [3]. Salje H, Tran-Kiem C, Lefrancq N, Courtejoie N, Bosetti P, Paireau J, Andronico A, Hozé N,
+                    Richet J, Dubost C L, Le-Strat Y, Lessler J, Levy-Bruhl D, Fontanet A, Opatowski L, Boelle P Y,
+                    Cauchemez S. Estimating the burden of SARS-CoV-2 in France. Science. 2020 Jul. 369(6500):208-211.
+                    https://doi.org/10.1126/science.abc3517
+
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid text-center">
+        <p> </p>
+    </footer>
+    </div>
+</body>
+
+
+
+</html>
