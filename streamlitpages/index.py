@@ -18,6 +18,10 @@ def index():
     st.markdown(
         f"""
 # Vaccine Tracker - Portugal
+Hi there!  
+This website aims to follow Portuguese vaccination to fight against Covid-19.
+
+## Key metrics
 _last update: {update_date}_
 
 Portuguese population: {total_pop}  
@@ -30,7 +34,8 @@ Remaining days for herd immunity: {remaining_days}
 
     st.markdown(
         f"""## Current Situation
-The rythm of portugal vaccination seems to follow a weekly cycle where Monday has generally the lowest injection rate, whereas the weekends have the hights doses injected."""
+From January to June the rythm of vaccination seems to follow a weekly cycle where Monday has generally the lowest injection rate, whereas the weekends have the highest.
+Since July we notice missing data that we completed by linear interpolation"""
     )
     st.plotly_chart(daily_doses, use_container_width=True)
 

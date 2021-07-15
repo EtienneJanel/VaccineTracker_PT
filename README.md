@@ -5,9 +5,16 @@ Monitor vaccine campaign in Portugal with flask in: https://vaccine-tracker-pt.h
 - add waffle graph for '% of pop vaccinates' **[DONE]**
 - add new graph for proportion of vaccine types / doses
     - maybe OWID has the data + cross with dictionnary, if not: drop the idea
-- figure out how to test the branch on Heroku first?
-- figure out how to rebase without breaking everything...
+- figure out how to test the branch on Heroku first?  **[DONE]**
+- figure out how to rebase without breaking everything...  **[DONE]**
 - img Readme to update
+- add footer (https://discuss.streamlit.io/t/st-footer/6447)
+- add header (description of the project)
+- add info under Title:
+    - % of the population vaccinated
+    - trend of vaccination
+    - trend of infection
+- add infection rate graph
 
 
 ## Output

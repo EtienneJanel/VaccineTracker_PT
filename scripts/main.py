@@ -34,6 +34,8 @@ class OwidData:
         df_pt = self.df[self.columns_].copy()
         df_pt = df_pt[df_pt.location == self.country]
         df_pt = df_pt[df_pt.date > "2021-01-01"]  # first date
+        # df_pt.fillna(method="bfill", limit=1, inplace=True)
+        df_pt.interpolate(method="linear", inplace=True)
         df_pt["total_vaccinations_ma"] = df_pt.total_vaccinations.rolling(7).mean()
         df_pt["daily_diff"] = df_pt.total_vaccinations.diff()
         df_pt["daily_diff_ma"] = df_pt.daily_diff.rolling(7).mean()
@@ -41,7 +43,7 @@ class OwidData:
         df_pt["due_date"] = (
             (df_pt.population * self.p) * time_span / (df_pt.total_vaccinations / 2)
         )
-        df_pt.dropna(inplace=True)
+        # df_pt.dropna(inplace=True)
         return df_pt
 
     def last_update(self):
